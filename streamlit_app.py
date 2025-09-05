@@ -16,10 +16,7 @@ st.set_page_config(
     layout="wide"
 )
 
-@st.cache_data
-def load_(default_path: str):
-    df = pd.read_csv(default_path)
-    return df
+df = load_data("resilience_sample_uk.csv")
 
 def normalize_columns(df, cols):
     from sklearn.preprocessing import MinMaxScaler
