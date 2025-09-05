@@ -90,7 +90,7 @@ st.sidebar.markdown("""
 if uploaded is not None:
     df = pd.read_csv(uploaded)
 else:
-    df = load_data("data/resilience_sample_uk.csv")
+    df = load_data("resilience_sample_uk.csv")
 
 df_scn = df.copy()
 if scenario != "Baseline (Today)":
