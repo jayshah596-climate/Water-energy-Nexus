@@ -19,7 +19,7 @@ streamlit run streamlit_app.py
 
 ## Data
 
-A sample dataset is included at `data/resilience_sample_uk.csv`.  
+A sample dataset is included at `resilience_sample_uk.csv`.  
 **Expected columns** if you upload your own CSV:
 
 ```
