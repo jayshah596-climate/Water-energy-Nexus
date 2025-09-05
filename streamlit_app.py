@@ -7,15 +7,17 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 import plotly.express as px
-# ---- Load data ----
-df = pd.read_csv("resilience_sample_uk.csv")
-
 st.set_page_config(
     page_title="UK Water Energy Nexus: Resilience Gap Dashboard",
     page_icon="💧⚡",
     layout="wide"
 )
 
+@st.cache_data
+def load_data(default_path: str):
+    return pd.read_csv(default_path)
+
+# ---- Load data ----
 df = load_data("resilience_sample_uk.csv")
 
 def normalize_columns(df, cols):
