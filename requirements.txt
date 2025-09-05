@@ -1,9 +1,10 @@
-setuptools
-wheel
+setuptools>=67.0.0
+wheel>=0.45.1
 cython==3.1.0
 streamlit==1.37.1
 pandas==2.2.2
 numpy==1.26.4
 plotly==5.22.0
 scikit-learn==1.4.2
+scipy==1.11.3
 
