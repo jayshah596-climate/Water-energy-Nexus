@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 @st.cache_data
-def load_data(default_path: str):
+def load_(default_path: str):
     df = pd.read_csv(default_path)
     return df
 
