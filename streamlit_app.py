@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,6 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 import plotly.express as px
+
 st.set_page_config(
     page_title="UK Water Energy Nexus: Resilience Gap Dashboard",
     page_icon="💧⚡",
@@ -36,7 +36,7 @@ def compute_resilience_gap(df, weights):
     gap = (
         weights["w_risk"] * X[risk_cols].mean(axis=1) +
         weights["w_exposure"] * X[exposure_cols].mean(axis=1) -
-        weights["w_capacity"] * X[capacity_col].iloc[:,0]
+        weights["w_capacity"] * X[capacity_col].iloc[:, 0]
     )
     return gap
 
@@ -102,15 +102,21 @@ df_scn["resilience_gap_score"] = gap
 df_scn["gap_rank"] = df_scn["resilience_gap_score"].rank(ascending=False, method="min").astype(int)
 
 from sklearn.preprocessing import StandardScaler
-X = StandardScaler().fit_transform(df_scn[["flood_risk_index","drought_risk_index","heatwave_days","water_supply_deficit","energy_demand_growth","critical_infra_score","interdependence_index","adaptive_capacity"]])
+X = StandardScaler().fit_transform(
+    df_scn[[
+        "flood_risk_index", "drought_risk_index", "heatwave_days",
+        "water_supply_deficit", "energy_demand_growth",
+        "critical_infra_score", "interdependence_index", "adaptive_capacity"
+    ]]
+)
 km = KMeans(n_clusters=n_clusters, n_init=20, random_state=42)
 clusters = km.fit_predict(X)
 df_scn["cluster"] = clusters
 
 pca = PCA(n_components=2, random_state=42)
 xy = pca.fit_transform(X)
-df_scn["pc1"] = xy[:,0]
-df_scn["pc2"] = xy[:,1]
+df_scn["pc1"] = xy[:, 0]
+df_scn["pc2"] = xy[:, 1]
 
 st.title("💧⚡ UK Water–Energy Nexus: Resilience Gap Dashboard")
 st.caption("Objective 1: Quantify resilience gaps across UK regions — configurable scenarios, weights, clustering, and rankings.")
@@ -176,5 +182,6 @@ st.info("""
 Resilience gap score = `w_risk * mean(normalized {flood, drought, heatwave}) + w_exposure * mean(normalized {deficit, demand, infra, interdependence}) - w_capacity * normalized(adaptive_capacity)`  
 Adjust scenario & weights in the sidebar. Upload your CSV to replace the sample data.
 """)
+
 
 st.caption("This is a demonstrator. Replace sample indicators with authoritative sources such as UKCP18/CMIP6 for climate hazards, Ofwat/Ofgem datasets for infrastructure and demand, and local resilience strategies for adaptive capacity.")
