@@ -119,7 +119,7 @@ df_scn["pc1"] = xy[:, 0]
 df_scn["pc2"] = xy[:, 1]
 
 st.title("💧⚡ UK Water–Energy Nexus: Resilience Gap Dashboard")
-st.caption("Objective 1: Quantify resilience gaps across UK regions — configurable scenarios, weights, clustering, and rankings.")
+st.caption("Quantify resilience gaps across UK regions — configurable scenarios, weights, clustering, and rankings.")
 
 c1, c2, c3, c4 = st.columns(4)
 with c1:
